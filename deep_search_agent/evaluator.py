@@ -23,7 +23,7 @@ def evaluate_research_findings(
     client: genai.Client,
     tool_name: str,
     findings: ResearchFindings,
-    model: str = "gemini-2.5-flash",
+    model: str = "gemini-3.8-flash",
 ) -> Feedback:
     """Evaluate gathered findings and determine if reflection/follow-up is needed."""
     compiled_findings = "\n\n".join(findings.raw_findings[-4:])  # most recent findings

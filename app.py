@@ -92,9 +92,13 @@ api_key = st.sidebar.text_input(
 
 model_choice = st.sidebar.selectbox(
     "Gemini Model",
-    ["gemini-2.5-flash", "gemini-2.5-pro"],
+    [
+        "gemini-3.8-flash",
+        "gemini-3.1-pro-preview",
+        "gemini-3.5-flash-lite",
+    ],
     index=0,
-    help="gemini-2.5-flash is fast with search grounding. gemini-2.5-pro provides deeper synthesis.",
+    help="gemini-3.8-flash is the latest Google Gemini model with high-speed search grounding and agentic reasoning.",
 )
 
 st.sidebar.markdown("---")

@@ -38,6 +38,15 @@ def search_web_fallback(query: str, max_results: int = 5) -> List[Dict[str, str]
         return []
 
 
+MODEL_ALIASES = {
+    "gemini-2.5-flash": "gemini-3.8-flash",
+    "gemini-2.5-pro": "gemini-3.1-pro-preview",
+    "gemini-2.0-flash": "gemini-3.8-flash",
+    "gemini-1.5-flash": "gemini-3.8-flash",
+    "gemini-1.5-pro": "gemini-3.1-pro-preview",
+}
+
+
 def generate_content(
     client: genai.Client,
     model: str,
@@ -48,9 +57,13 @@ def generate_content(
     temperature: float = 0.2,
 ) -> Any:
     """Unified wrapper around Gemini generate_content supporting grounding and structured schemas."""
+    # Automatically resolve legacy model strings to latest Gemini 3.8 models
+    actual_model = MODEL_ALIASES.get(model, model)
+
     config_params: Dict[str, Any] = {
         "temperature": temperature,
     }
+
 
     if system_instruction:
         config_params["system_instruction"] = system_instruction
@@ -66,7 +79,7 @@ def generate_content(
     config = types.GenerateContentConfig(**config_params)
 
     response = client.models.generate_content(
-        model=model,
+        model=actual_model,
         contents=prompt,
         config=config,
     )

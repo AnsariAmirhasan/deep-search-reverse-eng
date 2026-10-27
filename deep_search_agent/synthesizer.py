@@ -25,7 +25,7 @@ def generate_reverse_engineering_dossier(
     client: genai.Client,
     tool_name: str,
     findings: ResearchFindings,
-    model: str = "gemini-2.5-pro",
+    model: str = "gemini-3.8-flash",
 ) -> ReverseEngineeringDossier:
     """Synthesize all research into the structured Reverse-Engineering Dossier."""
     all_findings_text = "\n\n".join(findings.raw_findings)

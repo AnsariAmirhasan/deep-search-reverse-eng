@@ -25,7 +25,7 @@ def generate_reverse_engineering_plan(
     tool_name: str,
     mode: str = "Full Reverse Engineering",
     custom_notes: Optional[str] = None,
-    model: str = "gemini-2.5-flash",
+    model: str = "gemini-3.8-flash",
 ) -> ResearchPlan:
     """Generate a structured, editable investigation plan for the target tool."""
     prompt = f"""Target Tool to Reverse Engineer: {tool_name}

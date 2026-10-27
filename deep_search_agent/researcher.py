@@ -28,7 +28,7 @@ def execute_research_step(
     tool_name: str,
     plan_item: ResearchPlanItem,
     findings: ResearchFindings,
-    model: str = "gemini-2.5-flash",
+    model: str = "gemini-3.8-flash",
     progress_callback: Optional[Callable[[str], None]] = None,
 ) -> None:
     """Execute research on an individual plan dimension using search grounding and extraction."""
