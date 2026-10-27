@@ -187,7 +187,14 @@ if generate_plan_btn:
                 st.session_state.dossier = None
                 st.success("✅ Reverse-Engineering Plan Generated! Review and customize below.")
             except Exception as e:
-                st.error(f"Error generating plan: {e}")
+                err_text = str(e)
+                if "503" in err_text or "UNAVAILABLE" in err_text:
+                    st.error(
+                        "⚠️ **Google Gemini API is temporarily experiencing high demand (503).** "
+                        "We recommend trying again in a few seconds, or switching to **`gemini-3.5-flash-lite`** in the sidebar."
+                    )
+                else:
+                    st.error(f"Error generating plan: {e}")
 
 # Step 2: Human-in-the-Loop Plan Review & Execution
 if st.session_state.plan:
