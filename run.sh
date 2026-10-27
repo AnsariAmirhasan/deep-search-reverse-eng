@@ -8,17 +8,24 @@ echo "=========================================================="
 echo "🔬 DeepSearch Tool Reverse-Engineering Platform"
 echo "=========================================================="
 
-if [ ! -d ".venv" ]; then
-    echo "Creating Python virtual environment in .venv..."
-    python3 -m venv .venv
+# Select best python executable (python3.13 preferred over 3.14 on macOS)
+if command -v python3.13 >/dev/null 2>&1; then
+    PYTHON_CMD="python3.13"
+elif command -v python3 >/dev/null 2>&1; then
+    PYTHON_CMD="python3"
+else
+    echo "Python 3 is required but not installed."
+    exit 1
 fi
 
-echo "Activating virtual environment..."
-source .venv/bin/activate
+if [ ! -d ".venv" ]; then
+    echo "Creating Python virtual environment using $PYTHON_CMD..."
+    $PYTHON_CMD -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+else
+    source .venv/bin/activate
+fi
 
-echo "Installing / verifying dependencies..."
-pip install --upgrade pip -q
-pip install -r requirements.txt -q
-
-echo "Launching Streamlit Application..."
+echo "Launching Streamlit Application on http://localhost:8501..."
 streamlit run app.py
